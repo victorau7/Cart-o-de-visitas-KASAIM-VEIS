@@ -1,0 +1,256 @@
+:root {
+  /* Cores da Identidade Visual */
+  --bg-page: #383838; /* Fundo off-white oficial da marca */
+  --bg-card: #ffffff;
+  --text-main: #28292b; /* Texto em grafite */
+  --text-muted: rgba(40, 41, 43, 0.7);
+  --gold-vivid: #705f00; /* Dourado mais vivo para maior destaque */
+  --gold-border: rgba(255, 215, 0, 0.4);
+  
+  /* Layout & Transições */
+  --radius-card: 21px;
+  --radius-pill: 999px;
+  --radius-link: 20px;
+  --transition-default: 200ms ease;
+  
+  color-scheme: light;
+  font-family: "Segoe UI", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  min-width: 320px;
+  min-height: 100%;
+  background: var(--bg-page);
+  color: var(--text-main);
+}
+
+body {
+  /* Usando svh (small viewport height) como fallback moderno para mobile */
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+button, a {
+  font: inherit;
+}
+
+.page {
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 120px 20px 34px;
+}
+
+.profile-column {
+  width: min(100%, 384px);
+}
+
+.profile-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 192px;
+  padding: 82px 22px 24px;
+  border-radius: var(--radius-card);
+  background: var(--bg-card);
+  border: 1px solid var(--gold-border);
+  box-shadow: 0 4px 24px rgba(40, 41, 43, 0.05);
+  text-align: center;
+}
+
+/* Ajuste fino da foto de perfil para evitar distorções */
+.avatar {
+  position: absolute;
+  top: -42px; /* Ajustado para metade da altura (84/2) para centralização perfeita na borda */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  border: 2px solid var(--gold-vivid);
+  overflow: hidden;
+  background: var(--bg-page);
+  box-shadow: 0 4px 16px rgba(255, 215, 0, 0.15);
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.profile-card h1 {
+  font-size: 18px;
+  font-weight: 650;
+  line-height: 1.35;
+  color: var(--text-main);
+}
+
+.share-button {
+  position: absolute;
+  top: 22px;
+  left: 22px;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  background: transparent;
+  color: var(--gold-vivid);
+  cursor: pointer;
+  transition: transform var(--transition-default);
+}
+
+.share-button:hover {
+  transform: scale(1.1);
+}
+
+.share-button svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.45;
+}
+
+.save-contact {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 168px;
+  min-height: 37px;
+  margin-top: 24px;
+  padding: 8px 24px;
+  border: 1px solid var(--gold-vivid);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--gold-vivid);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all var(--transition-default);
+}
+
+.save-contact:hover {
+  background: var(--gold-vivid);
+  color: var(--bg-card);
+}
+
+.links-list {
+  display: grid;
+  gap: 12px;
+  width: 100%;
+  margin-top: 20px;
+}
+.profile-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 55px;
+  padding: 10px 18px;
+  border-radius: var(--radius-link); /* ou 20px dependendo da versão do seu CSS */
+  background: #ffffff; /* Fundo alterado para branco */
+  border: 1px solid var(--gold-border); /* ou rgba(255, 215, 0, 0.4) */
+  color: var(--text-main);
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all var(--transition-default);
+}
+.profile-link:hover {
+  transform: translateY(-2px);
+  background: var(--gold-vivid);
+  border-color: var(--gold-vivid);
+  color: var(--bg-card);
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
+}
+
+.profile-link svg {
+  flex: 0 0 21px;
+  width: 21px;
+  height: 21px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.65;
+}
+
+/* Herança correta de ícones SVG baseada na estrutura anterior */
+.profile-link:nth-child(2) svg path:last-child,
+.profile-link:nth-child(4) svg {
+  stroke-width: 1.15;
+}
+
+.profile-link:nth-child(4) svg path:nth-of-type(even),
+.profile-link:nth-child(1) svg .icon-fill {
+  fill: currentColor;
+  stroke: none;
+}
+
+.profile-link:nth-child(4) svg path:first-child {
+  fill: none;
+}
+
+.airgo-link {
+  display: block;
+  margin-top: 24px;
+  color: var(--text-muted);
+  font-size: 12px;
+  text-decoration: none;
+  transition: color var(--transition-default);
+}
+
+.airgo-link:hover {
+  color: var(--gold-vivid);
+  text-decoration: underline;
+}
+
+.share-status {
+  min-height: 18px;
+  margin-top: 6px;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold-vivid);
+  outline-offset: 4px;
+}
+
+@media (max-width: 480px) {
+  .page {
+    padding: 98px 16px 28px;
+  }
+  
+  .profile-card {
+    min-height: 190px;
+    padding-right: 18px;
+    padding-left: 18px;
+  }
+
+  .profile-link {
+    min-height: 56px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
