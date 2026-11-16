@@ -1,109 +1,419 @@
+:root {
+  /* IDENTIDADE VISUAL KASA IMÓVEIS */
+  --bg-page: #111111;
+  --bg-card: #1b1b1b;
+  --bg-card-light: #242424;
 
-/* AJUSTES FINAIS PARA APROXIMAR DA REFERÊNCIA */
+  --text-main: #f5f2eb;
+  --text-muted: #a7a29a;
 
-/* Largura responsiva */
+  --gold-vivid: #d6ad52;
+  --gold-light: #f5d98b;
+  --gold-dark: #94712b;
+  --gold-border: rgba(214, 173, 82, 0.75);
+
+  /* LAYOUT */
+  --radius-card: 25px;
+  --radius-pill: 999px;
+  --radius-link: 999px;
+  
+  /* Transição mais luxuosa e fluida */
+  --transition-default: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  color-scheme: dark;
+  /* Fonte do sistema para melhor performance e leitura */
+  font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  min-width: 320px;
+  background: var(--bg-page);
+  color: var(--text-main);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  /* dvh é o padrão ouro atual para mobile */
+  min-height: 100dvh;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 15%,
+      rgba(214, 173, 82, 0.09),
+      transparent 40%
+    ),
+    linear-gradient(
+      145deg,
+      #202020 0%,
+      #111111 55%,
+      #080808 100%
+    );
+}
+
+button, a {
+  font: inherit;
+  color: inherit;
+}
+
+/* ESTRUTURA PRINCIPAL */
+
+.page {
+  display: flex;
+  justify-content: center;
+  min-height: 100dvh;
+  padding: 120px 20px 45px;
+}
+
 .profile-column {
-  width: min(100%, 690px);
+  width: min(100%, 384px);
 }
 
-/* Botões com proporção mais próxima da imagem */
+/* CARTÃO PRINCIPAL */
+
+.profile-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 230px;
+  padding: 92px 22px 28px;
+  border-radius: var(--radius-card);
+
+  background: linear-gradient(
+    145deg,
+    rgba(43, 43, 43, 0.98),
+    rgba(15, 15, 15, 0.99)
+  );
+  border: 1px solid var(--gold-border);
+  box-shadow:
+    0 12px 35px rgba(0, 0, 0, 0.45),
+    0 0 18px rgba(214, 173, 82, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+  text-align: center;
+}
+
+/* LOGOTIPO */
+
+.avatar {
+  position: absolute;
+  top: -58px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 116px;
+  aspect-ratio: 1 / 1; /* Mantém sempre quadrado/círculo perfeito */
+
+  border-radius: 50%;
+  border: 2px solid var(--gold-vivid);
+  overflow: hidden;
+
+  background: radial-gradient(circle, #292929, #080808);
+  box-shadow:
+    0 0 0 5px rgba(214, 173, 82, 0.06),
+    0 0 25px rgba(214, 173, 82, 0.18);
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* NOME DA EMPRESA */
+
+.profile-card h1 {
+  font-size: 23px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--text-main);
+  letter-spacing: 1px;
+}
+
+/* BOTÃO COMPARTILHAR */
+
+.share-button {
+  position: absolute;
+  top: 23px;
+  left: 22px;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  background: transparent;
+  color: var(--gold-light);
+  cursor: pointer;
+  transition: transform var(--transition-default), color var(--transition-default);
+}
+
+.share-button:hover,
+.share-button:focus-visible {
+  transform: scale(1.12);
+  color: var(--gold-vivid);
+}
+
+.share-button svg {
+  width: 23px;
+  height: 23px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.65;
+}
+
+/* SALVAR CONTATO */
+
+.save-contact {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 205px;
+  min-height: 46px;
+  margin-top: 27px;
+  padding: 10px 26px;
+  border: 1.5px solid var(--gold-vivid);
+  border-radius: var(--radius-pill);
+  
+  background: linear-gradient(
+    135deg,
+    rgba(214, 173, 82, 0.08),
+    rgba(214, 173, 82, 0.01)
+  );
+  color: var(--gold-light);
+  font-size: 15px;
+  font-weight: 650;
+  letter-spacing: 0.2px;
+  text-decoration: none;
+  transition: all var(--transition-default);
+}
+
+.save-contact:hover,
+.save-contact:focus-visible {
+  background: linear-gradient(135deg, var(--gold-light), var(--gold-vivid));
+  color: #17130b;
+  box-shadow: 0 0 18px rgba(214, 173, 82, 0.25);
+  transform: translateY(-2px);
+}
+
+/* LISTA DE LINKS */
+
+.links-list {
+  display: grid;
+  gap: 13px;
+  width: 100%;
+  margin-top: 27px;
+}
+
+/* BOTÕES DE CONTATO (ESTILO FOTO) */
+
 .profile-link {
-  min-height: 68px;
-  padding: 8px 25px;
-  border-color: rgba(214, 173, 82, 0.85);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0;
+
+  min-height: 60px; /* Altura ajustada para a proporção da foto */
+  padding: 5px 24px; /* Espaçamento interno */
+
+  border-radius: 999px; /* Formato pílula (totalmente arredondado) */
+
+  /* Fundo muito escuro/preto como na foto */
+  background: linear-gradient(to right, #1a1a1a, #0a0a0a);
+  border: 1px solid var(--gold-border); /* Borda dourada fina */
+
+  color: #ffffff; /* Texto em branco */
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  user-select: none; /* Evita que o texto fique azul ao tocar no celular */
+
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  transition: all var(--transition-default);
 }
 
-/* Ícones e divisórias */
+/* EFEITO HOVER */
+
+.profile-link:hover,
+.profile-link:focus-visible {
+  transform: translateY(-3px);
+  background: linear-gradient(to right, #242424, #141414);
+  border-color: var(--gold-vivid);
+  box-shadow: 0 6px 20px rgba(214, 173, 82, 0.15);
+}
+
+/* ÍCONES E LINHA DIVISÓRIA */
+
 .profile-link svg {
-  flex: 0 0 48px;
-  width: 48px;
-  height: 28px;
-  padding-right: 16px;
-  margin-right: 18px;
+  flex: 0 0 32px; /* Largura fixa para alinhar as linhas */
+  width: 26px;
+  height: 26px;
+  
+  padding-right: 18px; /* Espaço entre o ícone e a linha */
+  margin-right: 18px;  /* Espaço entre a linha e o texto */
 
-  border-right: 1px solid var(--gold-vivid);
+  /* Linha divisória fina e clara (cinzento claro/branco translúcido) */
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
 }
 
-/* Texto dos botões */
+/* =========================================================
+   CORES DOS ÍCONES (Classes Utilitárias Seguras)
+   Adicione essas classes na tag <svg> ou no <a> do seu HTML
+   ========================================================= */
+.icon-whatsapp { color: #25d366 !important; }
+.icon-instagram { color: #e44c91 !important; }
+.icon-white { color: #ffffff !important; }
+.icon-gold { color: var(--gold-light) !important; }
+
+/* TEXTO DOS LINKS */
 .profile-link > *:not(svg) {
   flex: 1;
   text-align: left;
 }
 
-/* Setas */
+/* SETA INDICATIVA */
+
 .profile-link::after {
-  color: #f5f2eb;
-  font-size: 30px;
-}
-
-/* Cartão principal */
-.profile-card {
-  border-color: var(--gold-vivid);
-  box-shadow:
-    0 15px 35px rgba(0, 0, 0, 0.5),
-    0 0 12px rgba(214, 173, 82, 0.12);
-}
-
-/* Fotografia de fundo opcional */
-body {
-  background-color: #111;
-  background-image:
-    linear-gradient(
-      rgba(8, 8, 8, 0.72),
-      rgba(8, 8, 8, 0.88)
-    ),
-    url("images/fachada.jpg");
-
-  background-position: center;
-  background-size: cover;
-  background-attachment: fixed;
-}
-
-/* Rodapé */
-.profile-footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-  margin-top: 35px;
-  padding-bottom: 25px;
-  color: var(--text-muted);
-}
-
-.profile-footer .footer-line {
+  content: "›";
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 18px;
-  width: 100%;
-  color: var(--gold-light);
+  
+  margin-left: auto; /* Empurra a seta totalmente para a direita */
+  padding-bottom: 4px; /* Alinhamento ótico do símbolo */
+
+  color: #ffffff; /* Seta branca como na foto */
+  
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1;
+  
+  transition: transform var(--transition-default), color var(--transition-default);
 }
 
-.profile-footer .footer-line::before,
-.profile-footer .footer-line::after {
-  content: "";
-  height: 1px;
-  flex: 1;
-  background: var(--gold-vivid);
+.profile-link:hover::after,
+.profile-link:focus-visible::after {
+  transform: translateX(4px);
+  color: var(--gold-light); /* Brilha a dourado ao passar o rato */
 }
 
-.profile-footer p {
+/* LINK AIRGO */
+
+.airgo-link {
+  display: block;
+  margin-top: 28px;
+  color: var(--text-muted);
   font-size: 12px;
-  letter-spacing: 5px;
-  text-align: center;
+  text-decoration: none;
+  transition: color var(--transition-default);
 }
 
-/* Ajustes para celular */
+.airgo-link:hover,
+.airgo-link:focus-visible {
+  color: var(--gold-light);
+  text-decoration: underline;
+}
+
+/* STATUS DE COMPARTILHAMENTO */
+
+.share-status {
+  min-height: 18px;
+  margin-top: 8px;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+/* ACESSIBILIDADE */
+
+:focus-visible {
+  outline: 2px solid var(--gold-light);
+  outline-offset: 4px;
+}
+
+/* RESPONSIVIDADE */
+
 @media (max-width: 480px) {
+  .page {
+    padding: 100px 16px 35px;
+  }
   .profile-column {
     width: 100%;
+    max-width: 384px;
   }
-
+  .profile-card {
+    min-height: 220px;
+    padding: 88px 18px 25px;
+  }
+  .avatar {
+    width: 112px;
+    top: -56px;
+  }
+  .profile-card h1 {
+    font-size: 21px;
+  }
   .profile-link {
-    min-height: 62px;
+    min-height: 56px;
+    padding: 5px 20px;
+    font-size: 15px;
   }
+  .links-list {
+    gap: 12px;
+    margin-top: 24px;
+  }
+}
 
-  body {
-    background-attachment: scroll;
+/* TELAS MUITO PEQUENAS */
+
+@media (max-width: 360px) {
+  .page {
+    padding-right: 13px;
+    padding-left: 13px;
+  }
+  .profile-link {
+    min-height: 52px;
+    padding: 5px 16px;
+    font-size: 14px;
+  }
+  /* Ajuste refinado dos ícones e linhas para telas pequenas */
+  .profile-link svg {
+    flex-basis: 30px;
+    width: 24px;
+    height: 24px;
+    padding-right: 14px;
+    margin-right: 14px;
+  }
+  .profile-card h1 {
+    font-size: 19px;
+  }
+}
+
+/* REDUÇÃO DE MOVIMENTO */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 }
