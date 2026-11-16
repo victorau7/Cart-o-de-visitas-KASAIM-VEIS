@@ -51,9 +51,9 @@ body {
   background:
     linear-gradient(
       180deg,
-      rgba(10, 10, 10, 0.25) 0%,
-      rgba(10, 10, 10, 0.72) 45%,
-      rgba(8, 8, 8, 0.97) 100%
+      rgba(13, 13, 13, 0.25) 0%,
+      rgba(13, 13, 13, 0.8) 40%,
+      var(--bg-page) 65%
     ),
     radial-gradient(
       ellipse at 50% 15%,
@@ -208,15 +208,14 @@ body::after {
   background: transparent;
   color: var(--gold-light);
   cursor: pointer;
-  transition:
-    transform var(--transition-default),
-    color var(--transition-default);
+  -webkit-tap-highlight-color: transparent;
+  transition: transform var(--transition-default);
 }
 
-.share-button:hover,
-.share-button:focus-visible {
-  transform: scale(1.12);
-  color: var(--gold-vivid);
+@media (hover: hover) {
+  .share-button:hover {
+    transform: scale(1.12);
+  }
 }
 
 .share-button svg {
@@ -253,7 +252,11 @@ body::after {
   font-weight: 500;
   letter-spacing: 0.2px;
   text-decoration: none;
-  transition: all var(--transition-default);
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    transform var(--transition-default),
+    box-shadow var(--transition-default),
+    border-color var(--transition-default);
 }
 
 .save-contact svg {
@@ -267,12 +270,27 @@ body::after {
   stroke-width: 1.6;
 }
 
+.save-contact:visited,
+.save-contact:hover,
+.save-contact:focus,
+.save-contact:active {
+  color: var(--gold-light);
+}
+
+@media (hover: hover) {
+  .save-contact:hover {
+    transform: translateY(-2px);
+  }
+}
+
 .save-contact:hover,
 .save-contact:focus-visible {
-  background: linear-gradient(135deg, var(--gold-light), var(--gold-vivid));
-  color: #17130b;
+  border-color: var(--gold-light);
   box-shadow: 0 0 18px rgba(214, 173, 82, 0.28);
-  transform: translateY(-2px);
+}
+
+.save-contact:active {
+  transform: scale(0.98);
 }
 
 /* LISTA DE LINKS */
@@ -292,34 +310,65 @@ body::after {
 
   min-height: 60px;
   padding: 6px 26px 6px 0;
+  border: 1px solid transparent;
   border-radius: var(--radius-pill);
 
-  /* Brilho metálico à esquerda, escurecendo para a direita */
-  background: linear-gradient(100deg, #2c2c2c 0%, #181818 45%, #0c0c0c 100%);
-  border: 1.5px solid var(--gold-border);
+  /* Fundo = mesma cor da tela. Borda fina dourada em degradê (efeito metálico) */
+  background:
+    linear-gradient(var(--bg-page), var(--bg-page)) padding-box,
+    linear-gradient(
+      120deg,
+      #f5d98b 0%,
+      #94712b 30%,
+      rgba(148, 113, 43, 0.55) 62%,
+      #d6ad52 100%
+    ) border-box;
 
-  color: #ffffff;
+  color: var(--text-main);
   font-size: 18px;
   font-weight: 400;
+  letter-spacing: 0.4px;
   text-decoration: none;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 
   box-shadow:
-    0 8px 22px rgba(0, 0, 0, 0.55),
-    inset 0 1px 0 rgba(255, 255, 255, 0.07),
-    inset 0 -1px 0 rgba(214, 173, 82, 0.25);
-  transition: all var(--transition-default);
+    0 10px 24px rgba(0, 0, 0, 0.5),
+    0 1px 0 rgba(255, 255, 255, 0.03);
+  transition:
+    transform var(--transition-default),
+    box-shadow var(--transition-default);
 }
 
+/* O texto mantém sempre a mesma cor, em qualquer estado do botão */
+.profile-link:visited,
 .profile-link:hover,
+.profile-link:focus,
+.profile-link:active {
+  color: var(--text-main);
+}
+
+/* Efeitos de passar o mouse só em dispositivos com mouse (evita "hover preso" no celular) */
+@media (hover: hover) {
+  .profile-link:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 14px 30px rgba(0, 0, 0, 0.6),
+      0 0 24px rgba(214, 173, 82, 0.16);
+  }
+  .profile-link:hover::after {
+    transform: translateX(4px) rotate(45deg);
+  }
+}
+
 .profile-link:focus-visible {
-  transform: translateY(-2px);
-  border-color: var(--gold-light);
   box-shadow:
-    0 10px 26px rgba(0, 0, 0, 0.6),
-    0 0 18px rgba(214, 173, 82, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.09);
+    0 14px 30px rgba(0, 0, 0, 0.6),
+    0 0 24px rgba(214, 173, 82, 0.16);
+}
+
+.profile-link:active {
+  transform: scale(0.99);
 }
 
 /* ÍCONE (à esquerda, alinhado em todos os botões) */
@@ -334,43 +383,52 @@ body::after {
   stroke: currentColor;
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-width: 1.7;
+  stroke-width: 1.6;
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.08));
 }
 
-/* TEXTO + LINHA DIVISÓRIA DOURADA */
+/* TEXTO + DIVISÓRIA DOURADA QUE SE DISSOLVE NAS PONTAS */
 
 .profile-link > span {
+  position: relative;
   display: flex;
   align-items: center;
   flex: 1;
   min-height: 28px;
   margin-left: 24px;
   padding-left: 21px;
-  border-left: 1.5px solid var(--gold-vivid);
   text-align: left;
   white-space: nowrap;
 }
 
-/* SETA INDICATIVA */
+.profile-link > span::before {
+  content: "";
+  position: absolute;
+  top: -9px;
+  bottom: -9px;
+  left: 0;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    var(--gold-vivid) 30%,
+    var(--gold-vivid) 70%,
+    transparent
+  );
+}
+
+/* SETA INDICATIVA (fina e dourada) */
 
 .profile-link::after {
   content: "";
   flex: none;
-  width: 9px;
-  height: 9px;
-  margin: 0 4px 0 16px;
-  border-top: 2px solid #ffffff;
-  border-right: 2px solid #ffffff;
+  width: 8px;
+  height: 8px;
+  margin: 0 6px 0 16px;
+  border-top: 1.5px solid var(--gold-light);
+  border-right: 1.5px solid var(--gold-light);
   transform: rotate(45deg);
-  transition:
-    transform var(--transition-default),
-    border-color var(--transition-default);
-}
-
-.profile-link:hover::after,
-.profile-link:focus-visible::after {
-  transform: translateX(4px) rotate(45deg);
-  border-color: var(--gold-light);
+  transition: transform var(--transition-default);
 }
 
 /* CORES DOS ÍCONES */
