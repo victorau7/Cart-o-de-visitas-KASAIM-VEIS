@@ -186,7 +186,7 @@ body::after {
   line-height: 1.2;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: #ffffff;
+  color: var(--gold-vivid);
 }
 
 .profile-card h1 span {
@@ -443,33 +443,15 @@ a.profile-link {
   transition: transform var(--transition-default);
 }
 
-/* CORES DOS ÍCONES */
+/* ÍCONES: todos em dourado */
 
-.link-whatsapp svg {
-  color: #25d366;
-}
-
-.link-phone svg {
-  color: #22c55e;
-  fill: currentColor;
-}
-
-.link-instagram svg {
-  stroke: url(#ig-gradient) #e1306c;
+a.profile-link svg {
+  color: var(--gold-vivid) !important;
 }
 
 .link-instagram .icon-fill {
-  fill: url(#ig-gradient) #e1306c;
+  fill: currentColor;
   stroke: none;
-}
-
-.link-site svg {
-  color: #ffffff;
-}
-
-.link-address svg,
-.link-email svg {
-  color: var(--gold-vivid);
 }
 
 /* RODAPÉ */
