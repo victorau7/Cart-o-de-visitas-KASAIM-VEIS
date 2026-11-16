@@ -176,7 +176,6 @@ body::after {
   height: 100%;
   object-fit: cover;
 }
-
 /* NOME DA EMPRESA: KASA (branco, negrito) + IMÓVEIS (dourado) */
 
 .profile-card h1 {
@@ -185,8 +184,9 @@ body::after {
   line-height: 1.2;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: #ffffff;
+  color: var(--gold-vivid);
 }
+
 /* BOTÃO COMPARTILHAR */
 
 .share-button {
