@@ -1,28 +1,27 @@
 :root {
   /* IDENTIDADE VISUAL KASA IMÓVEIS */
-  --bg-page: #111111;
-  --bg-card: #1b1b1b;
-  --bg-card-light: #242424;
+  --bg-page: #0d0d0d;
 
   --text-main: #f5f2eb;
-  --text-muted: #a7a29a;
+  --text-muted: #8f8a82;
 
   --gold-vivid: #d6ad52;
-  --gold-light: #f5d98b;
+  --gold-light: #f0cf7a;
   --gold-dark: #94712b;
-  --gold-border: rgba(214, 173, 82, 0.75);
+  --gold-border: rgba(214, 173, 82, 0.85);
+  --gold-soft: rgba(214, 173, 82, 0.35);
+
+  /* Foto de fundo (prédio). Salve a imagem em imagens/fundo.jpg.
+     Se o arquivo não existir, o fundo escuro com degradê continua funcionando. */
+  --bg-photo: url("imagens/fundo.jpg");
 
   /* LAYOUT */
-  --radius-card: 25px;
+  --radius-card: 26px;
   --radius-pill: 999px;
-  --radius-link: 999px;
-  
-  /* Transição mais luxuosa e fluida */
   --transition-default: 300ms cubic-bezier(0.4, 0, 0.2, 1);
 
   color-scheme: dark;
-  /* Fonte do sistema para melhor performance e leitura */
-  font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  font-family: "Roboto", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -33,7 +32,8 @@
   padding: 0;
 }
 
-html, body {
+html,
+body {
   min-width: 320px;
   background: var(--bg-page);
   color: var(--text-main);
@@ -44,31 +44,66 @@ html {
 }
 
 body {
-  /* dvh é o padrão ouro atual para mobile */
+  position: relative;
   min-height: 100dvh;
+  overflow-x: hidden;
 
   background:
+    linear-gradient(
+      180deg,
+      rgba(10, 10, 10, 0.25) 0%,
+      rgba(10, 10, 10, 0.72) 45%,
+      rgba(8, 8, 8, 0.97) 100%
+    ),
     radial-gradient(
       ellipse at 50% 15%,
       rgba(214, 173, 82, 0.09),
-      transparent 40%
+      transparent 45%
     ),
-    linear-gradient(
-      145deg,
-      #202020 0%,
-      #111111 55%,
-      #080808 100%
-    );
+    var(--bg-photo) 70% top / cover no-repeat,
+    #0d0d0d;
 }
 
-button, a {
+button,
+a {
   font: inherit;
   color: inherit;
+}
+
+/* ARCOS DOURADOS DECORATIVOS (cantos da página) */
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  z-index: 0;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  border: 2px solid var(--gold-border);
+  outline: 1px solid var(--gold-soft);
+  outline-offset: -26px;
+  box-shadow: 0 0 16px rgba(214, 173, 82, 0.22);
+  pointer-events: none;
+}
+
+body::before {
+  top: -170px;
+  left: -170px;
+}
+
+body::after {
+  right: -170px;
+  bottom: -170px;
+  width: 340px;
+  height: 340px;
 }
 
 /* ESTRUTURA PRINCIPAL */
 
 .page {
+  position: relative;
+  z-index: 1;
   display: flex;
   justify-content: center;
   min-height: 100dvh;
@@ -79,6 +114,14 @@ button, a {
   width: min(100%, 384px);
 }
 
+/* Utilitário: SVG com gradiente do Instagram (fica fora da vista) */
+.svg-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
 /* CARTÃO PRINCIPAL */
 
 .profile-card {
@@ -86,20 +129,22 @@ button, a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 230px;
-  padding: 92px 22px 28px;
+  padding: 100px 22px 28px;
+  margin-bottom: 32px;
   border-radius: var(--radius-card);
 
   background: linear-gradient(
-    145deg,
-    rgba(43, 43, 43, 0.98),
-    rgba(15, 15, 15, 0.99)
+    160deg,
+    rgba(34, 34, 34, 0.94),
+    rgba(10, 10, 10, 0.97)
   );
-  border: 1px solid var(--gold-border);
+  border: 1.5px solid var(--gold-border);
   box-shadow:
-    0 12px 35px rgba(0, 0, 0, 0.45),
-    0 0 18px rgba(214, 173, 82, 0.07),
+    0 14px 38px rgba(0, 0, 0, 0.55),
+    0 0 22px rgba(214, 173, 82, 0.08),
     inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
 
   text-align: center;
 }
@@ -108,55 +153,64 @@ button, a {
 
 .avatar {
   position: absolute;
-  top: -58px;
+  z-index: 2;
+  top: -80px;
   left: 50%;
   transform: translateX(-50%);
 
-  width: 116px;
-  aspect-ratio: 1 / 1; /* Mantém sempre quadrado/círculo perfeito */
+  width: 160px;
+  aspect-ratio: 1 / 1;
 
   border-radius: 50%;
-  border: 2px solid var(--gold-vivid);
+  border: 3px solid var(--gold-vivid);
   overflow: hidden;
 
-  background: radial-gradient(circle, #292929, #080808);
+  background: radial-gradient(circle, #1c1c1c, #050505);
   box-shadow:
-    0 0 0 5px rgba(214, 173, 82, 0.06),
-    0 0 25px rgba(214, 173, 82, 0.18);
+    0 0 0 6px rgba(214, 173, 82, 0.07),
+    0 0 28px rgba(214, 173, 82, 0.25);
 }
 
 .avatar img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
 }
 
-/* NOME DA EMPRESA */
+/* NOME DA EMPRESA: KASA (branco, negrito) + IMÓVEIS (dourado) */
 
 .profile-card h1 {
-  font-size: 23px;
+  font-size: 24px;
   font-weight: 700;
-  line-height: 1.35;
-  color: var(--text-main);
+  line-height: 1.2;
   letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.profile-card h1 span {
+  color: var(--gold-light);
+  font-weight: 500;
 }
 
 /* BOTÃO COMPARTILHAR */
 
 .share-button {
   position: absolute;
-  top: 23px;
+  top: 22px;
   left: 22px;
   display: grid;
   place-items: center;
-  width: 30px;
-  height: 30px;
+  width: 36px;
+  height: 36px;
   border: 0;
   background: transparent;
   color: var(--gold-light);
   cursor: pointer;
-  transition: transform var(--transition-default), color var(--transition-default);
+  transition:
+    transform var(--transition-default),
+    color var(--transition-default);
 }
 
 .share-button:hover,
@@ -166,46 +220,58 @@ button, a {
 }
 
 .share-button svg {
-  width: 23px;
-  height: 23px;
+  width: 24px;
+  height: 24px;
   fill: none;
   stroke: currentColor;
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-width: 1.65;
+  stroke-width: 1.6;
 }
 
-/* SALVAR CONTATO */
+/* SALVAR NA AGENDA */
 
 .save-contact {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 205px;
+  gap: 12px;
+  min-width: 230px;
   min-height: 46px;
-  margin-top: 27px;
+  margin-top: 22px;
   padding: 10px 26px;
   border: 1.5px solid var(--gold-vivid);
   border-radius: var(--radius-pill);
-  
+
   background: linear-gradient(
     135deg,
-    rgba(214, 173, 82, 0.08),
-    rgba(214, 173, 82, 0.01)
+    rgba(214, 173, 82, 0.1),
+    rgba(214, 173, 82, 0.02)
   );
   color: var(--gold-light);
-  font-size: 15px;
-  font-weight: 650;
+  font-size: 16px;
+  font-weight: 500;
   letter-spacing: 0.2px;
   text-decoration: none;
   transition: all var(--transition-default);
+}
+
+.save-contact svg {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.6;
 }
 
 .save-contact:hover,
 .save-contact:focus-visible {
   background: linear-gradient(135deg, var(--gold-light), var(--gold-vivid));
   color: #17130b;
-  box-shadow: 0 0 18px rgba(214, 173, 82, 0.25);
+  box-shadow: 0 0 18px rgba(214, 173, 82, 0.28);
   transform: translateY(-2px);
 }
 
@@ -213,61 +279,56 @@ button, a {
 
 .links-list {
   display: grid;
-  gap: 13px;
+  gap: 16px;
   width: 100%;
-  margin-top: 27px;
 }
 
-/* BOTÕES DE CONTATO (ESTILO FOTO) */
+/* BOTÕES DE CONTATO */
 
 .profile-link {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  gap: 0;
 
-  min-height: 60px; /* Altura ajustada para a proporção da foto */
-  padding: 5px 24px; /* Espaçamento interno */
+  min-height: 60px;
+  padding: 6px 26px 6px 0;
+  border-radius: var(--radius-pill);
 
-  border-radius: 999px; /* Formato pílula (totalmente arredondado) */
+  /* Brilho metálico à esquerda, escurecendo para a direita */
+  background: linear-gradient(100deg, #2c2c2c 0%, #181818 45%, #0c0c0c 100%);
+  border: 1.5px solid var(--gold-border);
 
-  /* Fundo muito escuro/preto como na foto */
-  background: linear-gradient(to right, #1a1a1a, #0a0a0a);
-  border: 1px solid var(--gold-border); /* Borda dourada fina */
-
-  color: #ffffff; /* Texto em branco */
-  font-size: 16px;
-  font-weight: 500;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 400;
   text-decoration: none;
-  user-select: none; /* Evita que o texto fique azul ao tocar no celular */
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  box-shadow:
+    0 8px 22px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    inset 0 -1px 0 rgba(214, 173, 82, 0.25);
   transition: all var(--transition-default);
 }
 
-/* EFEITO HOVER */
-
 .profile-link:hover,
 .profile-link:focus-visible {
-  transform: translateY(-3px);
-  background: linear-gradient(to right, #242424, #141414);
-  border-color: var(--gold-vivid);
-  box-shadow: 0 6px 20px rgba(214, 173, 82, 0.15);
+  transform: translateY(-2px);
+  border-color: var(--gold-light);
+  box-shadow:
+    0 10px 26px rgba(0, 0, 0, 0.6),
+    0 0 18px rgba(214, 173, 82, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.09);
 }
 
-/* ÍCONES E LINHA DIVISÓRIA */
+/* ÍCONE (à esquerda, alinhado em todos os botões) */
 
 .profile-link svg {
-  flex: 0 0 32px; /* Largura fixa para alinhar as linhas */
-  width: 26px;
-  height: 26px;
-  
-  padding-right: 18px; /* Espaço entre o ícone e a linha */
-  margin-right: 18px;  /* Espaço entre a linha e o texto */
-
-  /* Linha divisória fina e clara (cinzento claro/branco translúcido) */
-  border-right: 1px solid rgba(255, 255, 255, 0.3);
+  flex: none;
+  width: 28px;
+  height: 28px;
+  margin-left: 15%;
 
   fill: none;
   stroke: currentColor;
@@ -276,71 +337,132 @@ button, a {
   stroke-width: 1.7;
 }
 
-/* =========================================================
-   CORES DOS ÍCONES (Classes Utilitárias Seguras)
-   Adicione essas classes na tag <svg> ou no <a> do seu HTML
-   ========================================================= */
-.icon-whatsapp { color: #25d366 !important; }
-.icon-instagram { color: #e44c91 !important; }
-.icon-white { color: #ffffff !important; }
-.icon-gold { color: var(--gold-light) !important; }
+/* TEXTO + LINHA DIVISÓRIA DOURADA */
 
-/* TEXTO DOS LINKS */
-.profile-link > *:not(svg) {
+.profile-link > span {
+  display: flex;
+  align-items: center;
   flex: 1;
+  min-height: 28px;
+  margin-left: 24px;
+  padding-left: 21px;
+  border-left: 1.5px solid var(--gold-vivid);
   text-align: left;
+  white-space: nowrap;
 }
 
 /* SETA INDICATIVA */
 
 .profile-link::after {
-  content: "›";
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
-  margin-left: auto; /* Empurra a seta totalmente para a direita */
-  padding-bottom: 4px; /* Alinhamento ótico do símbolo */
-
-  color: #ffffff; /* Seta branca como na foto */
-  
-  font-size: 28px;
-  font-weight: 400;
-  line-height: 1;
-  
-  transition: transform var(--transition-default), color var(--transition-default);
+  content: "";
+  flex: none;
+  width: 9px;
+  height: 9px;
+  margin: 0 4px 0 16px;
+  border-top: 2px solid #ffffff;
+  border-right: 2px solid #ffffff;
+  transform: rotate(45deg);
+  transition:
+    transform var(--transition-default),
+    border-color var(--transition-default);
 }
 
 .profile-link:hover::after,
 .profile-link:focus-visible::after {
-  transform: translateX(4px);
-  color: var(--gold-light); /* Brilha a dourado ao passar o rato */
+  transform: translateX(4px) rotate(45deg);
+  border-color: var(--gold-light);
 }
 
-/* LINK AIRGO */
+/* CORES DOS ÍCONES */
 
-.airgo-link {
-  display: block;
-  margin-top: 28px;
+.link-whatsapp svg {
+  color: #25d366;
+}
+
+.link-phone svg {
+  color: #22c55e;
+  fill: currentColor;
+}
+
+.link-instagram svg {
+  stroke: url(#ig-gradient);
+}
+
+.link-instagram .icon-fill {
+  fill: url(#ig-gradient);
+  stroke: none;
+}
+
+.link-site svg {
+  color: #ffffff;
+}
+
+.link-address svg,
+.link-email svg {
+  color: var(--gold-vivid);
+}
+
+/* "Endereço / Localização" em dourado, como na referência */
+.link-address > span {
+  color: var(--gold-light);
+}
+
+/* RODAPÉ */
+
+.footer-brand {
+  margin-top: 34px;
+  text-align: center;
+}
+
+.footer-divider {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.footer-divider::before,
+.footer-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+}
+
+.footer-divider::before {
+  background: linear-gradient(90deg, transparent, var(--gold-vivid));
+}
+
+.footer-divider::after {
+  background: linear-gradient(270deg, transparent, var(--gold-vivid));
+}
+
+.footer-divider svg {
+  flex: none;
+  width: 28px;
+  height: 28px;
+  fill: none;
+  stroke: var(--gold-vivid);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.5;
+}
+
+.footer-brand p {
+  margin-top: 12px;
+  padding-left: 0.42em; /* compensa o espaçamento após a última letra */
   color: var(--text-muted);
   font-size: 12px;
-  text-decoration: none;
-  transition: color var(--transition-default);
-}
-
-.airgo-link:hover,
-.airgo-link:focus-visible {
-  color: var(--gold-light);
-  text-decoration: underline;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
 }
 
 /* STATUS DE COMPARTILHAMENTO */
 
 .share-status {
   min-height: 18px;
-  margin-top: 8px;
+  margin-top: 10px;
   color: var(--text-muted);
   font-size: 12px;
+  text-align: center;
 }
 
 /* ACESSIBILIDADE */
@@ -354,31 +476,24 @@ button, a {
 
 @media (max-width: 480px) {
   .page {
-    padding: 100px 16px 35px;
+    padding: 110px 16px 35px;
   }
   .profile-column {
     width: 100%;
     max-width: 384px;
   }
   .profile-card {
-    min-height: 220px;
-    padding: 88px 18px 25px;
-  }
-  .avatar {
-    width: 112px;
-    top: -56px;
+    padding: 98px 18px 25px;
   }
   .profile-card h1 {
-    font-size: 21px;
+    font-size: 22px;
   }
   .profile-link {
     min-height: 56px;
-    padding: 5px 20px;
-    font-size: 15px;
+    font-size: 17px;
   }
   .links-list {
-    gap: 12px;
-    margin-top: 24px;
+    gap: 14px;
   }
 }
 
@@ -391,19 +506,26 @@ button, a {
   }
   .profile-link {
     min-height: 52px;
-    padding: 5px 16px;
-    font-size: 14px;
+    padding-right: 18px;
+    font-size: 15px;
   }
-  /* Ajuste refinado dos ícones e linhas para telas pequenas */
   .profile-link svg {
-    flex-basis: 30px;
     width: 24px;
     height: 24px;
-    padding-right: 14px;
-    margin-right: 14px;
+    margin-left: 8%;
+  }
+  .profile-link > span {
+    margin-left: 16px;
+    padding-left: 14px;
+  }
+  .profile-link::after {
+    margin-left: 10px;
   }
   .profile-card h1 {
-    font-size: 19px;
+    font-size: 20px;
+  }
+  .save-contact {
+    min-width: 200px;
   }
 }
 
