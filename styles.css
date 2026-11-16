@@ -313,18 +313,7 @@ body::after {
   border: 1px solid transparent;
   border-radius: var(--radius-pill);
 
-  /* Fundo = mesma cor da tela. Borda fina dourada em degradê (efeito metálico) */
-  background:
-    linear-gradient(var(--bg-page), var(--bg-page)) padding-box,
-    linear-gradient(
-      120deg,
-      #f5d98b 0%,
-      #94712b 30%,
-      rgba(148, 113, 43, 0.55) 62%,
-      #d6ad52 100%
-    ) border-box;
-
-  color: var(--text-main);
+  color: #ffffff;
   font-size: 18px;
   font-weight: 400;
   letter-spacing: 0.4px;
@@ -340,12 +329,27 @@ body::after {
     box-shadow var(--transition-default);
 }
 
-/* O texto mantém sempre a mesma cor, em qualquer estado do botão */
+/* Fundo = mesma cor do fundo do site + borda fina dourada em degradê.
+   "a.profile-link" + !important garantem que este fundo vença qualquer
+   estilo antigo (ex.: bloco <style> do HTML com fundo branco). */
+a.profile-link {
+  background:
+    linear-gradient(var(--bg-page), var(--bg-page)) padding-box,
+    linear-gradient(
+      120deg,
+      #f5d98b 0%,
+      #94712b 30%,
+      rgba(148, 113, 43, 0.55) 62%,
+      #d6ad52 100%
+    ) border-box !important;
+}
+
+/* Texto sempre branco, em qualquer estado do botão */
 .profile-link:visited,
 .profile-link:hover,
 .profile-link:focus,
 .profile-link:active {
-  color: var(--text-main);
+  color: #ffffff;
 }
 
 /* Efeitos de passar o mouse só em dispositivos com mouse (evita "hover preso" no celular) */
@@ -375,16 +379,24 @@ body::after {
 
 .profile-link svg {
   flex: none;
-  width: 28px;
-  height: 28px;
-  margin-left: 15%;
+  box-sizing: border-box;
+  width: 44px;
+  height: 44px;
+  margin-left: calc(15% - 8px);
+  padding: 8px;
+
+  /* Aro dourado ao redor do ícone */
+  border: 1.5px solid var(--gold-vivid);
+  border-radius: 50%;
+  box-shadow:
+    0 0 10px rgba(214, 173, 82, 0.2),
+    inset 0 0 8px rgba(214, 173, 82, 0.08);
 
   fill: none;
   stroke: currentColor;
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 1.6;
-  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.08));
 }
 
 /* TEXTO + DIVISÓRIA DOURADA QUE SE DISSOLVE NAS PONTAS */
@@ -395,7 +407,7 @@ body::after {
   align-items: center;
   flex: 1;
   min-height: 28px;
-  margin-left: 24px;
+  margin-left: 16px;
   padding-left: 21px;
   text-align: left;
   white-space: nowrap;
@@ -443,11 +455,11 @@ body::after {
 }
 
 .link-instagram svg {
-  stroke: url(#ig-gradient);
+  stroke: url(#ig-gradient) #e1306c;
 }
 
 .link-instagram .icon-fill {
-  fill: url(#ig-gradient);
+  fill: url(#ig-gradient) #e1306c;
   stroke: none;
 }
 
@@ -458,11 +470,6 @@ body::after {
 .link-address svg,
 .link-email svg {
   color: var(--gold-vivid);
-}
-
-/* "Endereço / Localização" em dourado, como na referência */
-.link-address > span {
-  color: var(--gold-light);
 }
 
 /* RODAPÉ */
@@ -568,12 +575,13 @@ body::after {
     font-size: 15px;
   }
   .profile-link svg {
-    width: 24px;
-    height: 24px;
-    margin-left: 8%;
+    width: 38px;
+    height: 38px;
+    margin-left: 6%;
+    padding: 6px;
   }
   .profile-link > span {
-    margin-left: 16px;
+    margin-left: 12px;
     padding-left: 14px;
   }
   .profile-link::after {
