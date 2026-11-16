@@ -1,19 +1,25 @@
+
 :root {
-  /* Cores da Identidade Visual */
-  --bg-page: #383838; /* Fundo off-white oficial da marca */
-  --bg-card: #ffffff;
-  --text-main: #28292b; /* Texto em grafite */
-  --text-muted: rgba(40, 41, 43, 0.7);
-  --gold-vivid: #705f00; /* Dourado mais vivo para maior destaque */
-  --gold-border: rgba(255, 215, 0, 0.4);
-  
-  /* Layout & Transições */
-  --radius-card: 21px;
+  /* IDENTIDADE VISUAL KASA IMÓVEIS */
+  --bg-page: #111111;
+  --bg-card: #1b1b1b;
+  --bg-card-light: #242424;
+
+  --text-main: #f5f2eb;
+  --text-muted: #a7a29a;
+
+  --gold-vivid: #d6ad52;
+  --gold-light: #f5d98b;
+  --gold-dark: #94712b;
+  --gold-border: rgba(214, 173, 82, 0.75);
+
+  /* LAYOUT */
+  --radius-card: 25px;
   --radius-pill: 999px;
-  --radius-link: 20px;
-  --transition-default: 200ms ease;
-  
-  color-scheme: light;
+  --radius-link: 999px;
+  --transition-default: 250ms ease;
+
+  color-scheme: dark;
   font-family: "Segoe UI", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -32,55 +38,98 @@ html, body {
   color: var(--text-main);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  /* Usando svh (small viewport height) como fallback moderno para mobile */
   min-height: 100vh;
   min-height: 100svh;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 15%,
+      rgba(214, 173, 82, 0.09),
+      transparent 40%
+    ),
+    linear-gradient(
+      145deg,
+      #202020 0%,
+      #111111 55%,
+      #080808 100%
+    );
 }
 
 button, a {
   font: inherit;
 }
 
+/* ESTRUTURA PRINCIPAL */
+
 .page {
   display: flex;
   justify-content: center;
   min-height: 100vh;
   min-height: 100svh;
-  padding: 120px 20px 34px;
+  padding: 120px 20px 45px;
 }
 
 .profile-column {
   width: min(100%, 384px);
 }
 
+/* CARTÃO PRINCIPAL */
+
 .profile-card {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 192px;
-  padding: 82px 22px 24px;
+
+  min-height: 230px;
+  padding: 92px 22px 28px;
+
   border-radius: var(--radius-card);
-  background: var(--bg-card);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(43, 43, 43, 0.98),
+      rgba(15, 15, 15, 0.99)
+    );
+
   border: 1px solid var(--gold-border);
-  box-shadow: 0 4px 24px rgba(40, 41, 43, 0.05);
+
+  box-shadow:
+    0 12px 35px rgba(0, 0, 0, 0.45),
+    0 0 18px rgba(214, 173, 82, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
   text-align: center;
 }
 
-/* Ajuste fino da foto de perfil para evitar distorções */
+/* LOGOTIPO */
+
 .avatar {
   position: absolute;
-  top: -42px; /* Ajustado para metade da altura (84/2) para centralização perfeita na borda */
+  top: -58px;
   left: 50%;
   transform: translateX(-50%);
-  width: 84px;
-  height: 84px;
+
+  width: 116px;
+  height: 116px;
+
   border-radius: 50%;
   border: 2px solid var(--gold-vivid);
+
   overflow: hidden;
-  background: var(--bg-page);
-  box-shadow: 0 4px 16px rgba(255, 215, 0, 0.15);
+
+  background:
+    radial-gradient(circle, #292929, #080808);
+
+  box-shadow:
+    0 0 0 5px rgba(214, 173, 82, 0.06),
+    0 0 25px rgba(214, 173, 82, 0.18);
 }
 
 .avatar img {
@@ -90,99 +139,48 @@ button, a {
   display: block;
 }
 
+/* NOME DA EMPRESA */
+
 .profile-card h1 {
-  font-size: 18px;
-  font-weight: 650;
+  font-size: 23px;
+  font-weight: 700;
   line-height: 1.35;
+
   color: var(--text-main);
+  letter-spacing: 1px;
 }
+
+/* BOTÃO COMPARTILHAR */
 
 .share-button {
   position: absolute;
-  top: 22px;
+  top: 23px;
   left: 22px;
+
   display: grid;
   place-items: center;
-  width: 28px;
-  height: 28px;
+
+  width: 30px;
+  height: 30px;
+
   border: 0;
   background: transparent;
-  color: var(--gold-vivid);
+
+  color: var(--gold-light);
   cursor: pointer;
+
   transition: transform var(--transition-default);
 }
 
 .share-button:hover {
-  transform: scale(1.1);
+  transform: scale(1.12);
+  color: var(--gold-vivid);
 }
 
 .share-button svg {
-  width: 22px;
-  height: 22px;
-  fill: none;
-  stroke: currentColor;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 1.45;
-}
+  width: 23px;
+  height: 23px;
 
-.save-contact {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 168px;
-  min-height: 37px;
-  margin-top: 24px;
-  padding: 8px 24px;
-  border: 1px solid var(--gold-vivid);
-  border-radius: var(--radius-pill);
-  background: transparent;
-  color: var(--gold-vivid);
-  font-size: 14px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all var(--transition-default);
-}
-
-.save-contact:hover {
-  background: var(--gold-vivid);
-  color: var(--bg-card);
-}
-
-.links-list {
-  display: grid;
-  gap: 12px;
-  width: 100%;
-  margin-top: 20px;
-}
-.profile-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  min-height: 55px;
-  padding: 10px 18px;
-  border-radius: var(--radius-link); /* ou 20px dependendo da versão do seu CSS */
-  background: #ffffff; /* Fundo alterado para branco */
-  border: 1px solid var(--gold-border); /* ou rgba(255, 215, 0, 0.4) */
-  color: var(--text-main);
-  font-size: 15px;
-  font-weight: 500;
-  text-decoration: none;
-  transition: all var(--transition-default);
-}
-.profile-link:hover {
-  transform: translateY(-2px);
-  background: var(--gold-vivid);
-  border-color: var(--gold-vivid);
-  color: var(--bg-card);
-  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
-}
-
-.profile-link svg {
-  flex: 0 0 21px;
-  width: 21px;
-  height: 21px;
   fill: none;
   stroke: currentColor;
   stroke-linecap: round;
@@ -190,66 +188,309 @@ button, a {
   stroke-width: 1.65;
 }
 
-/* Herança correta de ícones SVG baseada na estrutura anterior */
-.profile-link:nth-child(2) svg path:last-child,
-.profile-link:nth-child(4) svg {
-  stroke-width: 1.15;
+/* SALVAR CONTATO */
+
+.save-contact {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 205px;
+  min-height: 46px;
+
+  margin-top: 27px;
+  padding: 10px 26px;
+
+  border: 1.5px solid var(--gold-vivid);
+  border-radius: var(--radius-pill);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(214, 173, 82, 0.08),
+      rgba(214, 173, 82, 0.01)
+    );
+
+  color: var(--gold-light);
+
+  font-size: 15px;
+  font-weight: 650;
+  letter-spacing: 0.2px;
+
+  text-decoration: none;
+
+  transition: all var(--transition-default);
 }
 
-.profile-link:nth-child(4) svg path:nth-of-type(even),
-.profile-link:nth-child(1) svg .icon-fill {
-  fill: currentColor;
-  stroke: none;
+.save-contact:hover {
+  background: linear-gradient(
+    135deg,
+    var(--gold-light),
+    var(--gold-vivid)
+  );
+
+  color: #17130b;
+
+  box-shadow:
+    0 0 18px rgba(214, 173, 82, 0.25);
+
+  transform: translateY(-2px);
 }
 
-.profile-link:nth-child(4) svg path:first-child {
+/* LISTA DE LINKS */
+
+.links-list {
+  display: grid;
+  gap: 13px;
+
+  width: 100%;
+  margin-top: 27px;
+}
+
+/* BOTÕES DE CONTATO */
+
+.profile-link {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  gap: 0;
+
+  min-height: 66px;
+  padding: 10px 22px;
+
+  border-radius: var(--radius-link);
+
+  background:
+    linear-gradient(
+      110deg,
+      #292929 0%,
+      #171717 48%,
+      #101010 100%
+    );
+
+  border: 1px solid var(--gold-border);
+
+  color: var(--text-main);
+
+  font-size: 16px;
+  font-weight: 500;
+
+  text-decoration: none;
+
+  box-shadow:
+    0 5px 15px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+  transition: all var(--transition-default);
+}
+
+/* EFEITO HOVER */
+
+.profile-link:hover {
+  transform: translateY(-3px);
+
+  background:
+    linear-gradient(
+      110deg,
+      #33302a,
+      #1c1a16
+    );
+
+  border-color: var(--gold-light);
+
+  box-shadow:
+    0 7px 22px rgba(0, 0, 0, 0.35),
+    0 0 14px rgba(214, 173, 82, 0.13);
+}
+
+/* ÍCONES */
+
+.profile-link svg {
+  flex: 0 0 42px;
+
+  width: 42px;
+  height: 25px;
+
+  padding-right: 17px;
+
+  border-right: 1px solid var(--gold-vivid);
+
   fill: none;
+
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
 }
+
+/* CORES INDIVIDUAIS DOS ÍCONES */
+
+.profile-link:nth-child(1) svg {
+  color: #25d366;
+}
+
+.profile-link:nth-child(2) svg {
+  color: #e44c91;
+}
+
+.profile-link:nth-child(3) svg {
+  color: #25d366;
+}
+
+.profile-link:nth-child(4) svg {
+  color: #f5f2eb;
+}
+
+.profile-link:nth-child(5) svg {
+  color: var(--gold-light);
+}
+
+.profile-link:nth-child(6) svg {
+  color: var(--gold-light);
+}
+
+/* TEXTO DOS LINKS */
+
+.profile-link > *:not(svg) {
+  flex: 1;
+}
+
+/* SETA INDICATIVA */
+
+.profile-link::after {
+  content: "›";
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-left: 12px;
+
+  color: var(--gold-light);
+
+  font-size: 29px;
+  font-weight: 300;
+  line-height: 1;
+
+  transition: transform var(--transition-default);
+}
+
+.profile-link:hover::after {
+  transform: translateX(4px);
+}
+
+/* LINK AIRGO */
 
 .airgo-link {
   display: block;
-  margin-top: 24px;
+
+  margin-top: 28px;
+
   color: var(--text-muted);
+
   font-size: 12px;
   text-decoration: none;
+
   transition: color var(--transition-default);
 }
 
 .airgo-link:hover {
-  color: var(--gold-vivid);
+  color: var(--gold-light);
   text-decoration: underline;
 }
 
+/* STATUS DE COMPARTILHAMENTO */
+
 .share-status {
   min-height: 18px;
-  margin-top: 6px;
+  margin-top: 8px;
+
   color: var(--text-muted);
   font-size: 12px;
 }
 
+/* ACESSIBILIDADE */
+
 :focus-visible {
-  outline: 2px solid var(--gold-vivid);
+  outline: 2px solid var(--gold-light);
   outline-offset: 4px;
 }
 
+/* RESPONSIVIDADE */
+
 @media (max-width: 480px) {
+
   .page {
-    padding: 98px 16px 28px;
+    padding: 100px 16px 35px;
   }
-  
+
+  .profile-column {
+    width: 100%;
+    max-width: 384px;
+  }
+
   .profile-card {
-    min-height: 190px;
-    padding-right: 18px;
-    padding-left: 18px;
+    min-height: 220px;
+    padding: 88px 18px 25px;
+  }
+
+  .avatar {
+    width: 112px;
+    height: 112px;
+    top: -56px;
+  }
+
+  .profile-card h1 {
+    font-size: 21px;
   }
 
   .profile-link {
-    min-height: 56px;
+    min-height: 62px;
+    padding: 10px 20px;
+    font-size: 15px;
+  }
+
+  .links-list {
+    gap: 12px;
+    margin-top: 24px;
   }
 }
 
+/* TELAS MUITO PEQUENAS */
+
+@media (max-width: 360px) {
+
+  .page {
+    padding-right: 13px;
+    padding-left: 13px;
+  }
+
+  .profile-link {
+    min-height: 58px;
+    padding: 9px 15px;
+    font-size: 14px;
+  }
+
+  .profile-link svg {
+    flex-basis: 38px;
+    width: 38px;
+    padding-right: 13px;
+  }
+
+  .profile-card h1 {
+    font-size: 19px;
+  }
+}
+
+/* REDUÇÃO DE MOVIMENTO */
+
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
   }
