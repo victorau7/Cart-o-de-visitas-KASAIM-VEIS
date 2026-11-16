@@ -11,10 +11,6 @@
   --gold-border: rgba(214, 173, 82, 0.85);
   --gold-soft: rgba(214, 173, 82, 0.35);
 
-  /* Foto de fundo (prédio). Salve a imagem em imagens/fundo.jpg.
-     Se o arquivo não existir, o fundo escuro com degradê continua funcionando. */
-  --bg-photo: url("imagens/fundo.jpg");
-
   /* LAYOUT */
   --radius-card: 26px;
   --radius-pill: 999px;
@@ -49,18 +45,21 @@ body {
   overflow-x: hidden;
 
   background:
+    /* Película escura sobre a foto, para os textos continuarem legíveis */
     linear-gradient(
       180deg,
-      rgba(13, 13, 13, 0.25) 0%,
-      rgba(13, 13, 13, 0.8) 40%,
-      var(--bg-page) 65%
+      rgba(13, 13, 13, 0.35) 0%,
+      rgba(13, 13, 13, 0.65) 45%,
+      rgba(13, 13, 13, 0.92) 100%
     ),
     radial-gradient(
       ellipse at 50% 15%,
       rgba(214, 173, 82, 0.09),
       transparent 45%
     ),
-    var(--bg-photo) 70% top / cover no-repeat,
+    /* Foto da fachada. A 2ª linha é reserva caso a pasta esteja em minúsculas */
+    url("Imagens/fachada.png") center / cover no-repeat,
+    url("imagens/fachada.png") center / cover no-repeat,
     #0d0d0d;
 }
 
@@ -187,11 +186,6 @@ body::after {
   letter-spacing: 1px;
   text-transform: uppercase;
   color: var(--gold-vivid);
-}
-
-.profile-card h1 span {
-  color: var(--gold-light);
-  font-weight: 500;
 }
 
 /* BOTÃO COMPARTILHAR */
